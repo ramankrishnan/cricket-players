@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cricket-player-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cricket-player-app
+  template:
+    metadata:
+      labels:
+        app: cricket-player-app
+    spec:
+      containers:
+      - name: cricket-player-app
+        image: ramankms/cricket-player-app:latest
+        ports:
+        - containerPort: 5000

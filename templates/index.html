@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Player History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Cricket Player History</h1>
+    <div class="player-list">
+        {% for player in players %}
+            <div class="player-card">
+                <img src="{{ url_for('static', filename='images/' + player['image']) }}" alt="{{ player['name'] }}">
+                <h2>{{ player['name'] }}</h2>
+                <p><strong>Country:</strong> {{ player['country'] }}</p>
+                <p><strong>Role:</strong> {{ player['role'] }}</p>
+                <p><strong>History:</strong> {{ player['history'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
