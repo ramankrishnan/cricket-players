@@ -7,17 +7,17 @@ app = Flask(__name__)
 # Sample player data
 players = [
     {
-        'name': 'Virat Kohli',
+        'name': 'Raman',
         'country': 'India',
         'role': 'Batsman',
-        'image': 'virat_kohli.jpg',
+        'image': 'C:\Users\dell\cricket-players\Raman.jfif',
         'history': 'One of the best batsmen in the world.'
     },
     {
         'name': 'Steve Smith',
         'country': 'Australia',
         'role': 'Batsman',
-        'image': 'steve_smith.jpg',
+        'image': 'C:\Users\dell\cricket-players\prem.jfif',
         'history': 'Known for his unorthodox batting style.'
     },
     # Add more player data as needed

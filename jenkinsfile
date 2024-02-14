@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk17'
+    }
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    stages {
+        stage('Checkout From Git') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ramankrishnan/cricket-players.git'
+            }
+        }
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=cricket \
+                        -Dsonar.projectKey=cricket'''
+                }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                }
+            } 
+        }
+        stage("TRIVY File Scan") {
+            steps {
+                sh "trivy fs . > trivy-fs_report.txt" 
+            }
+        }
+        stage("OWASP Dependency Check") {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./ --format XML', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage("Docker Build & Push") {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {   
+                        sh "docker build -t cricket1 ."
+                        sh "docker tag cricket1 ramankms/cricket1:latest"
+
+                        sh "docker push ramankms/cricket1:latest"
+                    }
+                }
+            }
+        }
+        stage("TRIVY") {
+            steps {
+                sh "trivy image ramankms/cricket1:latest > trivyimage.txt" 
+            }
+        }
+        stage('Deploy to container'){
+            steps{
+                
+                sh'docker run -d --name cricket -p 5000:5000 ramankms/cricket1:latest'
+
+            }
+        }
+
+    }
+}
