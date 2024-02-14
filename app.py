@@ -10,14 +10,14 @@ players = [
         'name': 'Raman',
         'country': 'India',
         'role': 'Batsman',
-        'image': 'C:\Users\dell\cricket-players\Raman.jfif',
+        'image': r'C:\Users\dell\cricket-players\Raman.jfif',
         'history': 'One of the best batsmen in the world.'
     },
     {
         'name': 'Kannan',
         'country': 'Australia',
         'role': 'Batsman',
-        'image': 'C:\Users\dell\cricket-players\prem.jfif',
+        'image': r'C:\Users\dell\cricket-players\prem.jfif',
         'history': 'Known for his unorthodox batting style.'
     },
     # Add more player data as needed
