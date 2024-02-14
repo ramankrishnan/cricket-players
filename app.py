@@ -14,7 +14,7 @@ players = [
         'history': 'One of the best batsmen in the world.'
     },
     {
-        'name': 'Steve Smith',
+        'name': 'Kannan',
         'country': 'Australia',
         'role': 'Batsman',
         'image': 'C:\Users\dell\cricket-players\prem.jfif',
